@@ -8,7 +8,10 @@ import {
   TableRow,
   Title
 } from '@tremor/react';
-import { IDuplicate } from '../../interfaces/global_interfaces';
+import {
+  ICleanedProduct,
+  IDuplicate
+} from '../../interfaces/global_interfaces';
 import { formatDate } from '../../utils/utils';
 
 interface IComparisonTableProps {
@@ -44,7 +47,9 @@ export function Comparison({ viewingDuplicate }: IComparisonTableProps) {
               <TableRow key={key}>
                 <TableCell
                   className={`text-left font-bold ${
-                    viewingDuplicate[0]?.Fields?.includes(key as any)
+                    viewingDuplicate[0]?.Fields?.includes(
+                      key as keyof ICleanedProduct
+                    )
                       ? 'text-red-600'
                       : ''
                   }`}

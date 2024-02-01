@@ -39,8 +39,8 @@ export const FlavourChartTooltip = ({
         </div>
       </div>
       <List>
-        {categoryPayload.payload.samples.map((sample: any) => (
-          <ListItem key={sample}>
+        {categoryPayload.payload.samples.map((sample) => (
+          <ListItem key={sample.name}>
             <span>{sample.name}</span>
             <span>{sample.count} sample</span>
           </ListItem>

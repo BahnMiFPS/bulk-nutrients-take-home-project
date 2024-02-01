@@ -111,7 +111,7 @@ export function DuplicatesView({ data }: DuplicatesViewProps) {
         <Flex className="max-w-[100px] gap-2 flex-col justify-end items-end md:flex-row md:items-center">
           <MultiSelect
             title="Add keys to compare"
-            value={selectedOption as any}
+            value={selectedOption as string[]}
             onValueChange={(value) => {
               setSelectedOption(value as string[]);
             }}
