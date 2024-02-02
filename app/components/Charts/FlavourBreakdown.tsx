@@ -1,16 +1,6 @@
 'use client';
 import { useMemo, useState } from 'react';
-import {
-  Card,
-  DonutChart,
-  Flex,
-  SearchSelect,
-  SearchSelectItem,
-  Legend,
-  Title,
-  Subtitle
-} from '@tremor/react';
-import { CalculatorIcon } from '@heroicons/react/24/outline';
+import { Card, DonutChart, Flex, Legend, Title, Subtitle } from '@tremor/react';
 
 import { ICleanedProduct } from '../../interfaces/global_interfaces';
 import { getAllProducts, turnDataIntoFlavourData } from '../../utils/flavour';
@@ -52,12 +42,12 @@ export function FlavourBreakdown({ data }: IFlavourBreakdownProps) {
   const legendCategories = displayData
     .map((item) => `${item.name} (${formatPercentage(item.count, totalValue)})`)
     .slice(0, 5);
+
+  const productTitle = selectedProduct ? selectedProduct : 'All Products';
+
   return (
     <Card className="h-full">
-      <Title>
-        Flavour Breakdown Of{' '}
-        {`${selectedProduct ? selectedProduct : 'All Products'}`}
-      </Title>
+      <Title>Flavour Breakdown Of {productTitle}</Title>
       <Subtitle>Total of {totalValue} sample requests</Subtitle>
 
       <Flex className="mt-6 flex-col 2xl:flex-row gap-6 items-center justify-center">
@@ -71,10 +61,7 @@ export function FlavourBreakdown({ data }: IFlavourBreakdownProps) {
             className="mt-6 "
             customTooltip={FlavourChartTooltip}
           />
-          <Title className="mt-6">
-            Top 5 Flavours Of{' '}
-            {`${selectedProduct ? selectedProduct : 'All Products'}`}
-          </Title>
+          <Title className="mt-6">Top 5 Flavours Of {productTitle}</Title>
           <Legend
             categories={legendCategories}
             className="mt-6 flex-1 flex md:flex-row md:flex-wrap"

@@ -36,7 +36,7 @@ export const findDuplicates = (
         duplicatesMap.set(key, entry);
       }
 
-      entry.push({ item, fields });
+      entry.push({ item, fields }); // { item: {Name: '...', State: '...', Flavour: '...'}, fields: ['Name', 'State', 'Flavour'] }
       // Directly check for duplicates after insertion
       if (entry.length === 2) {
         // The first time we detect duplicates for this key

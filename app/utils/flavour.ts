@@ -1,5 +1,6 @@
 import { IFlavourBreakdown } from '../components/Charts/FlavourBreakdown';
 import { ICleanedProduct } from '../interfaces/global_interfaces';
+
 interface IFlavourDataAccumulator {
   [key: string]: {
     name: string;

@@ -16,6 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full" suppressHydrationWarning>
+      {/* Adding suppressHydrationWarning as suggested by next-themes */}
       <body className="h-full bg-gray-50 dark:bg-neutral-900">
         <Providers>
           <Suspense>

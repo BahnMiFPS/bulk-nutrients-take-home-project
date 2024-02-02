@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 import { MoonIcon, SunIcon } from '@heroicons/react/24/solid';
@@ -18,6 +20,7 @@ const ThemeSwitch = () => {
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
+
   return (
     <Button
       className="focus:outline-none active:outline-none active:bg-none"

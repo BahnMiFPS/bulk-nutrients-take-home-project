@@ -6,28 +6,26 @@ import Logo from '../logo.png';
 import LogoDark from '../logo-dark.png';
 import { useTheme } from 'next-themes';
 import ThemeSwitch from './ThemeSwitch';
-const navigation = [{ name: 'Dashboard', href: '/' }];
+import { useEffect, useState } from 'react';
+import { classNames } from '../utils/utils';
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ');
-}
+const navigation = [{ name: 'Dashboard', href: '/' }];
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { theme } = useTheme();
+  const [logoSrc, setLogoSrc] = useState(Logo);
 
+  const { theme } = useTheme();
+  useEffect(() => {
+    setLogoSrc(theme === 'dark' ? LogoDark : Logo);
+  }, [theme]);
   return (
     <nav className="bg-white dark:bg-[#0A0A0A] shadow-sm">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 justify-between">
           <div className="flex">
             <a className="flex flex-shrink-0 items-center" href="/">
-              <Image
-                src={theme === 'dark' ? LogoDark : Logo}
-                alt="Bulk Nutrients"
-                width={100}
-                height={100}
-              />
+              <Image src={logoSrc} alt="Bulk Nutrients" width={100} />
             </a>
             <div className=" -my-px ml-6 flex space-x-8">
               {navigation.map((item) => (

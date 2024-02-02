@@ -14,3 +14,7 @@ export const formatDate = (dateString: string) => {
   };
   return new Date(dateString).toLocaleString(undefined, options);
 };
+
+export function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(' ');
+}

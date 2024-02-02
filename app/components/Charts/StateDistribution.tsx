@@ -8,13 +8,13 @@ interface IStateDistributionProps {
   data: ICleanedProduct[];
 }
 
-interface TStateSampleData {
+interface IStateSampleData {
   name: string;
   value: number;
 }
 
 // Aggregates data by state and counts occurrences
-const turnDataIntoChartData = (data: ICleanedProduct[]): TStateSampleData[] => {
+const turnDataIntoChartData = (data: ICleanedProduct[]): IStateSampleData[] => {
   const stateCount = data.reduce<Record<string, number>>((acc, curr) => {
     const state = curr.State;
     acc[state] = (acc[state] || 0) + 1;

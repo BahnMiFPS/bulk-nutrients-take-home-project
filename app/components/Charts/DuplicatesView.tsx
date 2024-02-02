@@ -97,7 +97,7 @@ export function DuplicatesView({ data }: DuplicatesViewProps) {
   return (
     <Card className="">
       <Flex justifyContent="between" alignItems="start">
-        <div className="">
+        <Flex flexDirection="col" alignItems="start">
           <Text>Approximate Duplicates Found</Text>
           <Flex
             justifyContent="start"
@@ -107,7 +107,7 @@ export function DuplicatesView({ data }: DuplicatesViewProps) {
             <Metric>{duplicates.length}</Metric>
             <Text>/ {data.length}</Text>
           </Flex>
-        </div>
+        </Flex>
         <Flex className="max-w-[100px] gap-2 flex-col justify-end items-end md:flex-row md:items-center">
           <MultiSelect
             title="Add keys to compare"
