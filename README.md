@@ -8,7 +8,7 @@ Bulk Nutrients, a provider of nutritional supplements, offers a free sample requ
 
 - Response data is sorted by date and time in ascending order.
 - Response data are the same for each request.
-- The form provide a list of products to select from in a dropdown. (consistent product names)
+- The form provide a list of products to select from in a dropdown. This results in a consistent product name.
 
 ### The Challenge
 
@@ -62,15 +62,22 @@ Using the following stack:
 
 This uses the new Next.js App Router. This includes support for enhanced layouts, colocation of components, tests, and styles, component-level data fetching, and more.
 
-## Getting Started
+## Setting Up Your Development Environment
 
-Run the following commands to start the development server:
+1. Open terminal and run the following commands to clone the repository and navigate to the project directory:
 
-create a .env.local file and add the following:
+```
+git clone https://github.com/BahnMiFPS/bulk-nutrients-take-home-project.git
+cd bulk-nutrients-take-home-project
+```
+
+2. Create a .env.local file in the root of the project and add the following environment variable:
 
 ```
 BASE_URL = "API_URL/api/code-challenge"
 ```
+
+3. Run the following commands to start the development server:
 
 ```
 pnpm install

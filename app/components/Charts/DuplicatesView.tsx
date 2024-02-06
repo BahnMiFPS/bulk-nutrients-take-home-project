@@ -1,5 +1,5 @@
 'use client';
-import { ElementType, Fragment, useState } from 'react';
+import { ElementType, Fragment, useMemo, useState } from 'react';
 import { PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import {
   Badge,
@@ -45,18 +45,6 @@ type TMultiSelectOption = {
   icon?: ElementType<any>;
 };
 
-const multiSelectOptions: TMultiSelectOption[] = [
-  // Can add more options here
-  // { value: 'all', label: 'All' }
-  { value: 'Date', label: 'Date' },
-  { value: 'FirstName', label: 'FirstName' },
-  { value: 'LastName', label: 'LastName' },
-  { value: 'Postcode', label: 'Postcode' },
-  { value: 'State', label: 'State' },
-  { value: 'Sample', label: 'Sample' },
-  { value: 'Product', label: 'Product' },
-  { value: 'Flavour', label: 'Flavour' }
-];
 export function DuplicatesView({ data }: DuplicatesViewProps) {
   const [viewingDuplicate, setViewingDuplicate] = useState<
     IDuplicate[] | undefined
@@ -94,6 +82,14 @@ export function DuplicatesView({ data }: DuplicatesViewProps) {
 
   const duplicates = findDuplicates(data, keysToCheck);
 
+  const multiSelectOptions = useMemo(
+    () =>
+      Object.keys(data[0]).map((key) => ({
+        value: key,
+        label: key
+      })),
+    [data]
+  );
   return (
     <Card className="">
       <Flex justifyContent="between" alignItems="start">

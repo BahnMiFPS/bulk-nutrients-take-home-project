@@ -17,11 +17,15 @@ interface IStateSampleData {
 const turnDataIntoChartData = (data: ICleanedProduct[]): IStateSampleData[] => {
   const stateCount = data.reduce<Record<string, number>>((acc, curr) => {
     const state = curr.State;
+    // if (!state) {
+    //   console.log(state, acc, 'returning');
+    //   return acc;
+    // } // Skip if state is not available
     acc[state] = (acc[state] || 0) + 1;
     return acc;
   }, {});
-
   return Object.entries(stateCount)
+    // Mapping the object into an array of objects with name and value so that it can be used in the BarList component
     .map(([name, value]) => ({ name, value }))
     .sort((a, b) => b.value - a.value);
 };
