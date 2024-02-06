@@ -1,5 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    workerThreads: false,
+    cpus: 1
+  },
+  staticPageGenerationTimeout: 300,
   images: {
     remotePatterns: [
       {

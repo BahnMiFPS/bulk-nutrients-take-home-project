@@ -2,9 +2,9 @@ import { Col, Grid } from '@tremor/react';
 
 import { ICleanedProduct, IProduct } from './interfaces/global_interfaces';
 
+import { fetchApi } from './utils/fetchApi';
 import { cleanFlavour } from './utils/cleanFlavour';
 import { cleanState } from './utils/cleanState';
-import { fetchApi } from './utils/fetchApi';
 
 import {
   FlavourBreakdown,
