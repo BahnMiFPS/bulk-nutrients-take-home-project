@@ -55,6 +55,11 @@ export const turnDataIntoFlavourData = (
     } else {
       acc[flavour].samples[product] += 1;
     }
+    //   'Salted Caramel Flavour': {
+    //   name: 'Salted Caramel Flavour',
+    //   count: 55,
+    //   samples: { 'Protein Matrix+': 12, 'Earth Protein': 34, WPC: 9 }
+    // },
 
     return acc;
   }, {});
