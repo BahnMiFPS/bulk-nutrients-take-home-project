@@ -120,3 +120,32 @@ Process:
    If yes, the item is added to the existing entry, indicating a duplicate.
    When the second item for a unique key is added (indicating the first occurrence of duplication), the items are transformed into the IDuplicate format and added to allDuplicates. This includes the item data and the fields causing duplication.
    For any further duplicates of the same key, the new item is added to the last group of duplicates in allDuplicates.
+
+
+__________
+# SHORT VERSION
+Bulk Nutrients Sample Request Program - Technical Overview
+Part 1: Data Parsing and Cleaning
+Implementation Details
+In addressing the challenge of parsing and cleaning data from a rate-limited API, I employed the NextJS App Router's extended fetch feature. This approach allows for efficient data fetching from the API at build time, leveraging NextJS's server-side capabilities to mitigate the impact of rate limiting.
+
+By marking the page component as an asynchronous React server component, it can securely execute on the server, enabling it to await promises. This method benefits from NextJS's static data fetching, where data is cached at build time, significantly reducing the need for repetitive API calls and mitigating the rate limit constraints.
+
+Key Points:
+NextJS Caching: Utilizes NextJS's automatic caching of fetch return values in the Data Cache on the server. This caching mechanism ensures that data is fetched once at build or request time and reused, minimizing the impact of rate limiting.
+Data Cleaning: The state and product fields in the received data were standardized for consistency. A custom function in cleanState.ts was implemented to standardize state names by removing punctuation, converting to lowercase, and matching against a predefined dictionary of state variants. This standardization was crucial for accurately aggregating data in subsequent analyses.
+Part 2: Data Visualization and Analysis
+Most Popular Product Requested
+To visualize the most popular products requested, a donut chart was chosen for its clear visual representation. The data processing involved initializing an object to count product requests, iterating over the dataset to increment counts, and transforming this data into a sorted array for visualization. The donut chart displays the top products based on request frequency, offering an intuitive view of customer preferences.
+
+Samples Sent by Day of Week
+A bar chart was utilized to display the number of samples sent by day of the week, leveraging the turnDataIntoChartData function to aggregate and format data for visualization. This choice effectively communicates the distribution of sample requests over the week, enabling insights into peak request times.
+
+Samples Sent to Each State
+For visualizing the distribution of samples by state, a horizontal bar chart was employed. This visualization was supported by the cleaned and standardized state data, which facilitated the aggregation and sorting of sample counts by state. Although a country map visualization was considered, the horizontal bar chart was chosen for its simplicity and effectiveness within the project's time constraints.
+
+Flavour Breakdown Across All Products
+The flavour breakdown was visualized using a pie chart for the top flavours, with a supplementary table to display a comprehensive flavour breakdown. This approach balances clarity with completeness, allowing users to grasp the most popular flavours at a glance while having access to detailed data. A filter option was also implemented to enable breakdowns for specific products, enhancing the chart's utility for detailed analyses.
+
+Duplicate Submissions Approximation
+The process of identifying duplicate submissions involved creating a unique key for each submission based on specified fields and using a map to track and group duplicates. This method efficiently identifies and organizes duplicates, facilitating analysis of data integrity and submission patterns.
