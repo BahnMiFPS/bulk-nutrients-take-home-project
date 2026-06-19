@@ -17,17 +17,32 @@ interface IStateSampleData {
 const turnDataIntoChartData = (data: ICleanedProduct[]): IStateSampleData[] => {
   const stateCount = data.reduce<Record<string, number>>((acc, curr) => {
     const state = curr.State;
-    // if (!state) {
-    //   console.log(state, acc, 'returning');
-    //   return acc;
-    // } // Skip if state is not available
+    if (!state) {
+      // console.log(state, acc, 'returning');
+      return acc;
+    } // Skip if state is not available
+
     acc[state] = (acc[state] || 0) + 1;
     return acc;
   }, {});
-  return Object.entries(stateCount)
-    // Mapping the object into an array of objects with name and value so that it can be used in the BarList component
-    .map(([name, value]) => ({ name, value }))
-    .sort((a, b) => b.value - a.value);
+  // stateCount:  // Example
+  //   {
+  //   Queensland: 121,
+  //   Victoria: 176,
+  //   'South Australia': 41,
+  //   'New South Wales': 176,
+  //   'Western Australia': 51,
+  //   Tasmania: 40,
+  //   'Australian Capital Territory': 13
+  // }
+
+  return (
+    Object.entries(stateCount)
+      // Mapping the object into an array of objects with name and value so that it can be used in the BarList component
+      .map(([name, value]) => ({ name, value }))
+      .sort((a, b) => b.value - a.value)
+  );
+  // return: [ { name: 'Victoria', value: 176 }, ...]
 };
 
 export function StateDistribution({ data }: IStateDistributionProps) {
@@ -35,7 +50,6 @@ export function StateDistribution({ data }: IStateDistributionProps) {
   const sortedStateSampleData = useMemo(() => {
     return turnDataIntoChartData(data);
   }, [data]);
-
   return (
     <Card>
       <Title>State Sample Distribution</Title>

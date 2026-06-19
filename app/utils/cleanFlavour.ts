@@ -4,7 +4,7 @@ export function cleanFlavour(sample: string, type: string) {
 
   if (parts.length !== 2) {
     // Handle unexpected format
-    console.error('Unexpected Sample format:', sample);
+    // console.error('Unexpected Sample format:', sample);
     return sample; // or return an empty string, or handle this case as needed
   }
 

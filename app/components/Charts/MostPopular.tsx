@@ -26,12 +26,11 @@ const turnDataIntoDonutData = (
   data: ICleanedProduct[],
   filterValue: string
 ): TProductCount[] => {
-  const productCount: Record<string, number> = {};
-
-  // Aggregate the data
-  data.forEach((item: ICleanedProduct) => {
-    productCount[item.Product] = (productCount[item.Product] || 0) + 1;
-  });
+  // reduce method:
+  const productCount = data.reduce<Record<string, number>>((acc, item) => {
+    acc[item.Product] = (acc[item.Product] || 0) + 1;
+    return acc;
+  }, {});
 
   let result = Object.entries(productCount)
     .map(([name, count]) => ({ name, count }))
@@ -44,9 +43,11 @@ const turnDataIntoDonutData = (
 
 export function MostPopular({ data }: IMostPopularProps) {
   const [filterValue, setFilterValue] = useState<string>('5');
-  const displayData = useMemo(() => {
-    return turnDataIntoDonutData(data, filterValue);
-  }, [data, filterValue]);
+  // const displayData = useMemo(() => {
+  //   return turnDataIntoDonutData(data, filterValue);
+  // }, [data, filterValue]);
+
+  const displayData = turnDataIntoDonutData(data, filterValue);
 
   const totalValue = displayData.reduce((acc, item) => acc + item.count, 0);
 

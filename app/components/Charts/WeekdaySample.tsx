@@ -25,13 +25,13 @@ interface ISampleByDayProps {
 }
 
 const days: Day[] = [
+  'Sunday',
   'Monday',
   'Tuesday',
   'Wednesday',
   'Thursday',
   'Friday',
-  'Saturday',
-  'Sunday'
+  'Saturday'
 ];
 
 type FilterValue = 'date' | 'samples';
@@ -41,20 +41,22 @@ function getWeekday(dateString: string): Day {
   return days[date.getDay()];
 }
 
-const chartData: Record<Day, number> = {
-  Sunday: 0,
-  Monday: 0,
-  Tuesday: 0,
-  Wednesday: 0,
-  Thursday: 0,
-  Friday: 0,
-  Saturday: 0
-};
-
 const turnDataIntoChartData = (data: ICleanedProduct[]): ChartData[] => {
-  data.forEach((item: ICleanedProduct) => {
-    chartData[getWeekday(item.Date)] += 1;
-  });
+  const chartInitialData: Record<Day, number> = {
+    Sunday: 0,
+    Monday: 0,
+    Tuesday: 0,
+    Wednesday: 0,
+    Thursday: 0,
+    Friday: 0,
+    Saturday: 0
+  };
+
+  const chartData = data.reduce<Record<string, number>>((acc, item) => {
+    const day = getWeekday(item.Date);
+    acc[day] += 1;
+    return acc;
+  }, chartInitialData);
 
   return Object.entries(chartData).map(([day, Samples]) => ({
     day: day as Day,

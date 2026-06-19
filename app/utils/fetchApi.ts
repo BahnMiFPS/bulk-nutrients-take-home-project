@@ -18,12 +18,12 @@ export async function fetchApi(
       const response = await fetch(
         `${process.env.BASE_URL}/?page=${page}&limit=${limit}`
       );
-      console.log(`Current Page: ${page}`);
+
       const limitRemaining = parseInt(
         response.headers.get('X-RateLimit-Remaining') || '1',
         10
       );
-      console.log('🚀 ~ limitRemaining:', limitRemaining);
+
       if (!response.ok) {
         if (response.status === 429) {
           console.log('Rate limit hit, delaying next request');

@@ -9,53 +9,38 @@ const createKey = (
     throw new Error('No fields specified');
   }
   return fields
-    .map((field) => item[field].toString().toLowerCase()) // Ensure case-insensitive comparison
+    .map((field) => item[field].toString().toLowerCase().replace(/\s+/g, '')) // Remove whitespaces and ensure case-insensitive comparison
     .join('-');
 };
 
-// Function to find duplicated entries based on multiple fields
 export const findDuplicates = (
   data: ICleanedProduct[],
   keysToCheck: (keyof ICleanedProduct)[][]
 ): IDuplicate[][] => {
-  const duplicatesMap = new Map<
-    string,
-    { item: ICleanedProduct; fields: (keyof ICleanedProduct)[] }[]
-  >();
-  const allDuplicates: IDuplicate[][] = [];
+  const duplicatesTracker = new Map<string, IDuplicate[]>();
 
   data.forEach((item) => {
     keysToCheck.forEach((fields) => {
-      // ['Name', 'State', 'Flavour']
+      const key = createKey(item, fields);
 
-      const key = createKey(item, fields); // 'name-state-flavour'
-
-      let entry = duplicatesMap.get(key);
-      if (!entry) {
-        entry = [];
-        duplicatesMap.set(key, entry);
-      }
-
-      entry.push({ item, fields }); // { item: {Name: '...', State: '...', Flavour: '...'}, fields: ['Name', 'State', 'Flavour'] }
-      // Directly check for duplicates after insertion
-      if (entry.length === 2) {
-        // The first time we detect duplicates for this key
-        const transformedItems: IDuplicate[] = entry.map(
-          ({ item, fields }) => ({
-            ...item,
-            Fields: fields
-          })
-        );
-        allDuplicates.push(transformedItems);
-      } else if (entry.length > 2) {
-        // Already detected as duplicates, just add the new one
-        allDuplicates[allDuplicates.length - 1].push({
-          ...item,
-          Fields: fields
-        });
+      // If the key doesn't exist in the map, initialize it with the current item
+      if (!duplicatesTracker.has(key)) {
+        duplicatesTracker.set(key, [{ ...item, Fields: fields }]); // Initialize the group
+      } else {
+        // If the key already exists, add the current item to the group
+        const duplicates = duplicatesTracker.get(key);
+        console.log('🚀 ~ keysToCheck.forEach ~ duplicates:', duplicates);
+        if (duplicates) {
+          duplicates.push({ ...item, Fields: fields }); // Add the current item to the group
+        }
       }
     });
   });
+
+  // Filter out any "groups" that don't actually have duplicates (length <= 1)
+  const allDuplicates = Array.from(duplicatesTracker.values()).filter(
+    (group) => group.length > 1
+  );
 
   return allDuplicates;
 };
